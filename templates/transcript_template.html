@@ -1,0 +1,117 @@
+<!-- templates/transcript_template.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Set page size to A4 */
+        @page {
+            size: A4 portrait;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .transcript {
+            width: 100%;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .header-left {
+            text-align: left;
+            font-size: 12px;
+        }
+        .header-right {
+            text-align: right;
+            font-size: 12px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .student-info {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .course {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid #bbb;
+            padding: 4px;
+            text-align: left;
+        }
+        th {
+            background-color: #ddd;
+        }
+        .footer {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: right;
+        }
+        /* Ensure content fits on one page */
+        .content {
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+<body>
+    <div class="transcript content">
+        <div class="header">
+            <div class="header-left">
+                <strong>The Shia Imami Ismaili Tariqah and Religious Education Board<br>for Southern Region</strong>
+            </div>
+            <div class="header-right">
+                <strong>Honorary Instructors Development Program</strong>
+            </div>
+        </div>
+
+        <h1>Transcript</h1>
+
+        <div class="student-info">
+            <p><strong>Student Name:</strong> {{ student.name }}</p>
+            <p><strong>Enrollment Number:</strong> {{ student.serial_no }}</p>
+        </div>
+
+        {% for course in student.courses %}
+        <div class="course">
+            <h2>{{ course.name }}</h2>
+            <table>
+                <tr>
+                    <th>Subcomponent</th>
+                    <th>Marks Obtained</th>
+                    <th>Max Mark</th>
+                </tr>
+                {% for grade in course.grades %}
+                <tr>
+                    <td>{{ grade.subcomponent }}</td>
+                    <td>{{ grade.percentage }}</td>
+                    <td>{{ grade.max_mark }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <p><strong>Total Percentage:</strong> {{ course.total_percentage }}%</p>
+            <p><strong>Grade:</strong> {{ course.letter_grade }}</p>
+            <p><strong>Grade Points:</strong> {{ course.grade_points }}</p>
+        </div>
+        {% endfor %}
+
+        <div class="footer">
+            <p><strong>SGPA:</strong> {{ student.sgpa }}</p>
+            <p><strong>CGPA:</strong> {{ student.cgpa }}</p>
+        </div>
+    </div>
+</body>
+</html>
